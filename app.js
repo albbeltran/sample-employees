@@ -19,6 +19,23 @@ app.use(cors({
     methods: ['GET', 'PUT', 'POST']
 }));
 
+// database
+
+employees = [
+    {
+        id: '2940',
+        name: 'John',
+        password: 'RZKQH2',
+        department: 'RRHH',
+    },
+    {
+        id: '2950',
+        name: 'Susan',
+        password: 'QWERTY',
+        department: 'SALES',
+    }
+]
+
 // endpoints
 
 app.get('/', (req, res) => {
@@ -26,10 +43,14 @@ app.get('/', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-    if (req.body.emp_id == 'john'
-        && req.body.emp_pass == '123') {
-        res.send('success');
-    }
+    // verify employee's dpto is RRHH
+    // verify password
+    console.log(req.body)
+})
+
+app.get('/busqueda/:id', (req, res) => {
+    // search employee
+    console.log(req.params)
 })
 
 app.listen(port, () => {

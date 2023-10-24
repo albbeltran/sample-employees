@@ -50,7 +50,7 @@ export default class LoginForm {
         // regular expression to check if the id is alphanumeric
         if (this.id.value != '' && !/^([a-zA-Z0-9]+)$/.test(this.id.value)) {
             this.id.errors = true;
-            alert(this.id, 'Username can only contain letters and numbers.');
+            alert('Username can only contain letters and numbers.');
         }
     }
 }
