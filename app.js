@@ -42,15 +42,20 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 })
 
+app.get('/busqueda/:id', (req, res) => {
+    // search employee
+    console.log(req.params)
+})
+
 app.post('/login', (req, res) => {
     // verify employee's dpto is RRHH
     // verify password
     console.log(req.body)
 })
 
-app.get('/busqueda/:id', (req, res) => {
-    // search employee
-    console.log(req.params)
+app.post('/alta', (req, res) => {
+    // add employee to database
+    console.log(req.body)
 })
 
 app.listen(port, () => {

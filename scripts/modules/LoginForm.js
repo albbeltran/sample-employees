@@ -19,7 +19,7 @@ export default class LoginForm {
         this.idHandler();
         // this.passwordHandler();
 
-        if (this.id.errors == false) {
+        if (this.id.errors === false) {
             // this.form.submit();
 
             console.log(this.id.value, this.password.value)
@@ -50,7 +50,7 @@ export default class LoginForm {
         // regular expression to check if the id is alphanumeric
         if (this.id.value != '' && !/^([a-zA-Z0-9]+)$/.test(this.id.value)) {
             this.id.errors = true;
-            alert('Username can only contain letters and numbers.');
+            alert('El expediente solo puede contener números y letras.');
         }
     }
 }

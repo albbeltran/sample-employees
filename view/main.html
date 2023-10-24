@@ -8,11 +8,34 @@
 </head>
 
 <body>
+    <h3>Buscar emmpleado</h3>
     <form id="search-form">
-        <label for="search_emp">Buscar empleado (id):</label>
-        <input type="text" name="search_emp" id="search_emp">
+        <label for="emp_search">Empleado (exp):</label>
+        <input type="text" name="emp_search" id="emp_search">
 
         <input type="submit" value="Buscar">
+    </form>
+
+    <h3>Alta de empleado</h3>
+    <form id="add-form">
+        <label for="emp_name">Nombre: </label>
+        <input type="text" name="emp_name" id="emp_name">
+
+        <label for="emp_id">Expediente:</label>
+        <input class="form-control" type="text" name="emp_id" id="emp_id">
+
+        <label for="emp_dpto">Departamento:</label>
+        <select name="emp_dpto" id="emp_dpto">
+            <option value="TI">Información de las Tecnologías</option>
+            <option value="sales">Ventas</option>
+            <option value="marketing">Mercadoctenia</option>
+            <option value="rrhh">Recursos Humanos</option>
+        </select>
+
+        <label for="emp_pass">Contraseña:</label>
+        <input class="form-control" type="password" name="emp_pass" id="emp_pass">
+
+        <input type="submit" value="Alta">
     </form>
 
     <script type="module" src="../scripts/main.js"></script>

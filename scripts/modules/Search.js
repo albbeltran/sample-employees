@@ -16,7 +16,7 @@ export default class Search {
     formSubmitHandler() {
         this.idHandler();
 
-        if (this.id.errors == false) {
+        if (this.id.errors === false) {
             // this.form.submit();
 
             console.log(this.id.value);
