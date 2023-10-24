@@ -45,6 +45,12 @@ app.get('/', (req, res) => {
 app.get('/busqueda/:id', (req, res) => {
     // search employee
     console.log(req.params)
+    res.send(    {
+        id: '2940',
+        name: 'John',
+        password: 'RZKQH2',
+        department: 'RRHH',
+    })
 })
 
 app.post('/login', (req, res) => {
