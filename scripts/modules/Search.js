@@ -35,8 +35,8 @@ export default class Search {
 
         if (this.id) {
             this.idHandler();
-            if (this.id.errors) return;
             this.id.value = '';
+            if (this.id.errors) return;
         }
 
         fetch(this.path, {
