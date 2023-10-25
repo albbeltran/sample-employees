@@ -8,16 +8,6 @@
 </head>
 
 <body>
-    <h3>Buscar emmpleado</h3>
-    <form id="search-form">
-        <label for="emp_search">Empleado (exp):</label>
-        <input type="text" name="emp_search" id="emp_search">
-
-        <input type="submit" value="Buscar">
-    </form>
-
-    <div id="busqueda"></div>
-
     <h3>Alta de empleado</h3>
     <form id="add-form">
         <label for="emp_name">Nombre: </label>
@@ -40,7 +30,7 @@
         <input type="submit" value="Alta">
     </form>
 
-    
+
     <h3>Empleados</h3>
     <table id="table">
         <tr>
@@ -49,10 +39,16 @@
             <th>Departamento</th>
         </tr>
     </table>
-    
+
+    <form id="search-form">
+        <label for="emp_search">Buscar empleado:</label>
+        <input type="text" name="id" id="emp_search" placeholder="Expediente">
+
+        <input type="submit" value="Buscar">
+    </form>
 
     <script type="module" src="../scripts/main.js"></script>
-    
+
     <script type="module">
         import Render from '../scripts/modules/Render.js'
         const table = document.getElementById('table');
