@@ -21,7 +21,7 @@ export default class Search {
 
             console.log(this.id.value);
 
-            fetch(`http://localhost:3000/empleado/:${this.id.value}`, {
+            fetch(`http://localhost:3000/empleado/${this.id.value}`, {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json',
@@ -50,6 +50,7 @@ export default class Search {
     }
 
     renderResult(keys, values) {
+        console.log(keys, values)
         let editForm = document.querySelector('#edit-form');
 
         if (!editForm) {
@@ -101,9 +102,10 @@ export default class Search {
             document.querySelector('#busqueda').appendChild(editForm);
         }
 
-        values.forEach(value => {
+        values.forEach((value, index) => {
+            console.log(value)
             let fields = document.querySelectorAll('#edit-form .form-control');
-            fields.forEach(field => field.setAttribute('placeholder', `${value}`))
+            fields[index].setAttribute('placeholder', `${value}`);
         })
     }
 

@@ -42,21 +42,27 @@ app.post('/login', (req, res) => {
     // verify employee's dpto is RRHH
     // verify password
 
+    let exists = false;
+
     for (let index = 0; index < employees.length; index++) {
         if (employees[index].id === req.body.emp_id) {
+            exists = true;
+
+            // if employee dpto is RRHH and password is correct send 200 success code
             if (employees[index].department === 'RRHH'
                 && employees[index].password === req.body.emp_pass) {
                 res.sendStatus(200);
                 break;
             }
 
+            // otherwise, send 401 error (No Authorized)
             res.sendStatus(401);
             break;
         }
-
-        // Req employee id does not exist
-        if (index === employees.length - 1) res.sendStatus(400);
     }
+    // Req employee id does not exist
+    if (!exists) res.sendStatus(400);
+
 })
 
 app.get('/', (req, res) => {
@@ -82,13 +88,20 @@ app.get('/', (req, res) => {
 
 app.get('/empleado/:id', (req, res) => {
     // search employee
-    console.log(req.params)
-    res.send({
-        id: '2940',
-        name: 'John',
-        password: 'RZKQH2',
-        department: 'RRHH',
-    })
+    let exists = false;
+
+    for (let index = 0; index < employees.length; index++) {
+        console.log(req.params.id)
+        console.log(req.params)
+
+        if (employees[index].id === req.params.id) {
+            exists = true;
+            res.send(employees[index]);
+            break;
+        }
+    }
+
+    if (!exists) res.sendStatus(400);
 })
 
 app.post('/empleado', (req, res) => {
