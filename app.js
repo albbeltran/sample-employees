@@ -67,19 +67,7 @@ app.post('/login', (req, res) => {
 
 app.get('/', (req, res) => {
     // We can iterate over a all the employees on the server or render with js and DOM
-    let employeesList = '';
-
-    employees.forEach(employee => {
-        employeesList +=
-            `<tr>
-            <td>${employee.id}</td>
-            <td>${employee.name}</td>
-            <td>${employee.department}</td>
-        </tr>`;
-    })
-
-    res.send(JSON.stringify(employeesList)
-    );
+    res.send(employees);
 })
 
 app.get('/empleado/:id', (req, res) => {
