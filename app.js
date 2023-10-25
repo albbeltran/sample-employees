@@ -60,7 +60,7 @@ app.post('/login', (req, res) => {
     for (let index = 0; index < employees.length; index++) {
         if (employees[index].id === req.body.emp_id) {
             if (employees[index].department === 'RRHH'
-            && employees[index].password === req.body.emp_pass) {
+                && employees[index].password === req.body.emp_pass) {
                 res.sendStatus(200);
                 break;
             }
@@ -76,7 +76,18 @@ app.post('/login', (req, res) => {
 
 app.post('/alta', (req, res) => {
     // add employee to database
-    console.log(req.body)
+    let exists = false;
+
+    for (let index = 0; index < employees.length; index++) {
+        if (employees[index].id === req.body.emp_id) {
+            exists = true;
+            res.sendStatus(400);
+            break;
+        }
+    }
+
+    if (!exists) employees.push(req.body);
+    console.log(employees);
 })
 
 app.listen(port, () => {
