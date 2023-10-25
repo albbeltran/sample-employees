@@ -19,8 +19,6 @@ export default class Search {
         if (this.id.errors === false) {
             // this.form.submit();
 
-            console.log(this.id.value);
-
             fetch(`http://localhost:3000/empleado/${this.id.value}`, {
                 method: 'GET',
                 headers: {
@@ -28,14 +26,17 @@ export default class Search {
                     'Content-Type': 'application/json'
                 }
             })
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log(data)
-                    this.convertObjToArr(data);
+                .then(res => {
+                    if (res.status === 200) {
+                        res.json().then(data => {
+                            this.convertObjToArr(data);
+                        })
+                    } else if (res.status === 400) {
+                        alert('The employee does not exists in database.');
+                        console.error(`ERROR. Status code: ${res.status}`);
+                    }
                 })
-                .catch(() => {
-                    console.log('Request not done')
-                })
+                .catch(err => console.error(`Request error: ${err}`))
         }
     }
 
@@ -50,7 +51,6 @@ export default class Search {
     }
 
     renderResult(keys, values) {
-        console.log(keys, values)
         let editForm = document.querySelector('#edit-form');
 
         if (!editForm) {
@@ -67,16 +67,16 @@ export default class Search {
             keys.forEach((key, index) => {
                 let label = document.createElement('label');
                 let input = document.createElement('input');
-                
+
                 label.innerText = key;
                 label.setAttribute('for', `${attributes[index]}`);
-                
+
                 input.setAttribute('type', 'text');
                 input.setAttribute('id', `${attributes[index]}`);
                 input.setAttribute('name', `${attributes[index]}`);
                 input.setAttribute('class', 'form-control');
                 input.setAttribute('disabled', 'true');
-                
+
                 editForm.appendChild(label);
                 editForm.appendChild(input);
             })
@@ -103,7 +103,6 @@ export default class Search {
         }
 
         values.forEach((value, index) => {
-            console.log(value)
             let fields = document.querySelectorAll('#edit-form .form-control');
             fields[index].setAttribute('placeholder', `${value}`);
         })

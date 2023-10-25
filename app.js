@@ -45,12 +45,12 @@ app.post('/login', (req, res) => {
     let exists = false;
 
     for (let index = 0; index < employees.length; index++) {
-        if (employees[index].id === req.body.emp_id) {
+        if (employees[index].id === req.body.password) {
             exists = true;
 
             // if employee dpto is RRHH and password is correct send 200 success code
             if (employees[index].department === 'RRHH'
-                && employees[index].password === req.body.emp_pass) {
+                && employees[index].password === req.body.password) {
                 res.sendStatus(200);
                 break;
             }
@@ -89,10 +89,8 @@ app.post('/empleado', (req, res) => {
     // add employee to database
     let exists = false;
 
-    console.log(employees)
-
     for (let index = 0; index < employees.length; index++) {
-        if (employees[index].id === req.body.emp_id) {
+        if (employees[index].id === req.body.id) {
             exists = true;
             res.sendStatus(400);
             break;
@@ -101,10 +99,10 @@ app.post('/empleado', (req, res) => {
 
     if (!exists) {
         employees.push(req.body)
-        res.send(200);
+        res.sendStatus(200);
     }
 
-    console.log(employees);
+    console.log(employees)
 })
 
 app.put('/empleado/:id', (req, res) => {

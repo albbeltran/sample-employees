@@ -22,8 +22,6 @@ export default class LoginForm {
         if (this.id.errors === false) {
             // this.form.submit();
 
-            console.log(this.id.value, this.password.value)
-
             fetch('http://localhost:3000/login', {
                 method: 'POST',
                 headers: {
@@ -36,7 +34,7 @@ export default class LoginForm {
                 })
             })
                 .then(res => console.log(res.status))
-                .catch(err => console.log(`Error: ${err}`))
+                .catch(err => console.error(`Request error: ${err}`))
         }
     }
 

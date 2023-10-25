@@ -26,27 +26,31 @@ export default class AddForm {
         if (this.id.errors === false
             && this.name.errors === false
             && this.dpto.errors === false) {
-                let employeeData = {
-                    name: this.name.value,
-                    id: this.id.value,
-                    password: this.password.value,
-                    department: this.dpto.value
-                }
+            let employeeData = {
+                id: this.id.value,
+                name: this.name.value,
+                password: this.password.value,
+                department: this.dpto.value
+            }
 
-                fetch('http://localhost:3000/empleado', {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(employeeData)
+            fetch('http://localhost:3000/empleado', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(employeeData)
+            })
+                .then(res => {
+                    if (res.status === 200) {
+                        console.log('Employee added to database.');
+                        Render.insertNewRowTable(employeeData);
+                    } else if (res.status === 400) {
+                        alert('The employee already exists in database.');
+                        console.error(`ERROR. Status code: ${res.status}`);
+                    }
                 })
-                .then(() => {
-                    console.log('Employee added to database.');
-                    Render.insertNewRowTable(employeeData);
-                    console.log('Employee rendered.');
-                })
-                .catch((err) => console.log(err))
+                .catch(err => console.error(`Request error: ${err}`))
         }
     }
 
