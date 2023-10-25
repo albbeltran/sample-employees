@@ -42,17 +42,6 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 })
 
-app.get('/busqueda/:id', (req, res) => {
-    // search employee
-    console.log(req.params)
-    res.send({
-        id: '2940',
-        name: 'John',
-        password: 'RZKQH2',
-        department: 'RRHH',
-    })
-})
-
 app.post('/login', (req, res) => {
     // verify employee's dpto is RRHH
     // verify password
@@ -74,7 +63,18 @@ app.post('/login', (req, res) => {
     }
 })
 
-app.post('/alta', (req, res) => {
+app.get('/empleado/:id', (req, res) => {
+    // search employee
+    console.log(req.params)
+    res.send({
+        id: '2940',
+        name: 'John',
+        password: 'RZKQH2',
+        department: 'RRHH',
+    })
+})
+
+app.post('/empleado', (req, res) => {
     // add employee to database
     let exists = false;
 
@@ -88,6 +88,14 @@ app.post('/alta', (req, res) => {
 
     if (!exists) employees.push(req.body);
     console.log(employees);
+})
+
+app.put('/empleado/:id', (req, res) => {
+
+})
+
+app.delete('/empleado/:id', (req, res) => {
+
 })
 
 app.listen(port, () => {

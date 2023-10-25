@@ -21,7 +21,7 @@ export default class Search {
 
             console.log(this.id.value);
 
-            fetch(`http://localhost:3000/busqueda/:${this.id.value}`, {
+            fetch(`http://localhost:3000/empleado/:${this.id.value}`, {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json',
