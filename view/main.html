@@ -21,13 +21,13 @@
     <h3>Alta de empleado</h3>
     <form id="add-form">
         <label for="emp_name">Nombre: </label>
-        <input type="text" name="emp_name" id="emp_name">
+        <input type="text" name="name" id="emp_name">
 
         <label for="emp_id">Expediente:</label>
-        <input class="form-control" type="text" name="emp_id" id="emp_id">
+        <input class="form-control" type="text" name="id" id="emp_id">
 
         <label for="emp_dpto">Departamento:</label>
-        <select name="emp_dpto" id="emp_dpto">
+        <select name="department" id="emp_dpto">
             <option value="TI">Información de las Tecnologías</option>
             <option value="sales">Ventas</option>
             <option value="marketing">Mercadoctenia</option>
@@ -35,13 +35,12 @@
         </select>
 
         <label for="emp_pass">Contraseña:</label>
-        <input class="form-control" type="password" name="emp_pass" id="emp_pass">
+        <input class="form-control" type="password" name="password" id="emp_pass">
 
         <input type="submit" value="Alta">
     </form>
 
-    <script type="module" src="../scripts/main.js"></script>
-
+    
     <h3>Empleados</h3>
     <table id="table">
         <tr>
@@ -50,9 +49,10 @@
             <th>Departamento</th>
         </tr>
     </table>
+    
 
-    <script type="module" src="../scripts/modules/Render.js"></script>
-
+    <script type="module" src="../scripts/main.js"></script>
+    
     <script type="module">
         import Render from '../scripts/modules/Render.js'
         const table = document.getElementById('table');
@@ -69,54 +69,6 @@
         async function fetchData() {
             const data = await fetch('http://localhost:3000/');
             return await data.json();
-        }
-
-        function insertNewRowTable(employee) {
-            console.log(employee)
-            let newRow = table.insertRow(-1);
-
-            insertCellTable(newRow, employee["id"]);
-            insertCellTable(newRow, employee["name"]);
-            insertCellTable(newRow, employee["department"]);
-
-            let removeCell = newRow.insertCell(-1);
-            let btnRemove = document.createElement('button');
-            btnRemove.innerText = 'Baja';
-
-            removeCell.appendChild(btnRemove);
-
-            let updateCell = newRow.insertCell(-1);
-            let btnUpdate = document.createElement('button');
-            btnUpdate.innerText = 'Actualizar';
-
-            updateCell.appendChild(btnUpdate);
-
-            btnRemove.addEventListener('click', (e) => {
-                removeRow(newRow)
-            })
-
-            btnUpdate.addEventListener('click', (e) => {
-                updateRow(e)
-            });
-        }
-
-        function insertCellTable(newRow, value) {
-            let newCell = newRow.insertCell(-1);
-            newCell.textContent = value;
-        }
-
-        function removeRow(row) {
-            let idToRem = row.children[0].innerHTML;
-
-            fetch(`http://localhost:3000/empleado/${idToRem}`, {
-                method: 'DELETE'
-            }).then(() => {
-                row.remove();
-            }).catch(err => console.log(err))
-        }
-
-        function updateRow(row) {
-            console.log(row)
         }
     </script>
 </body>

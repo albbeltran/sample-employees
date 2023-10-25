@@ -27,10 +27,10 @@ export default class AddForm {
             && this.name.errors === false
             && this.dpto.errors === false) {
                 let employeeData = {
-                    emp_name: this.name.value,
-                    emp_id: this.id.value,
-                    emp_pass: this.password.value,
-                    emp_dpto: this.dpto.value
+                    name: this.name.value,
+                    id: this.id.value,
+                    password: this.password.value,
+                    department: this.dpto.value
                 }
 
                 fetch('http://localhost:3000/empleado', {
