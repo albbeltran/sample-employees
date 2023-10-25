@@ -2,20 +2,19 @@ const table = document.querySelector('#table');
 
 export default class Render {
 
+    static clearTable() {
+        // remove all rows except header row
+        let rowCount = table.rows.length;
+
+        for (let i = rowCount - 1; i > 0; i--) {
+            table.deleteRow(i);
+        }
+    }
+
     static insertNewRowTable(employee, renderOnlyOne) {
         Render.table = table;
 
-        let rowPos = -1;
-
-        if(renderOnlyOne) {
-            // remove all rows except header row
-            const [first,...other] = table.rows;
-            other.forEach(element => {
-                element.remove();
-            });
-        }
-
-        let newRow = Render.table.insertRow(rowPos);
+        let newRow = Render.table.insertRow(-1);
 
         Render.insertCellTable(newRow, employee["id"]);
         Render.insertCellTable(newRow, employee["name"]);

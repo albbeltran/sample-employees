@@ -15,13 +15,21 @@ export default class Search {
         })
     }
 
+    selectPath() {
+        if (this.id !== undefined) this.path = `http://localhost:3000/empleado/${this.id.value}`;
+        else this.path = 'http://localhost:3000/empleado/'
+    }
+
     formSubmitHandler() {
         this.idHandler();
 
         if (this.id.errors === false) {
             // this.form.submit();
 
-            fetch(`http://localhost:3000/empleado/${this.id.value}`, {
+            this.selectPath()
+            console.log(this.path)
+
+            fetch(this.path, {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json',
@@ -30,7 +38,17 @@ export default class Search {
             })
                 .then(res => {
                     if (res.status === 200) {
-                        res.json().then(employeeData => Render.insertNewRowTable(employeeData, true));
+                        res.json().then(employees => {
+                            Render.clearTable();
+
+                            if (!employees.length) Render.insertNewRowTable(employees, true)
+                            else {
+                                employees.forEach(employee => {
+                                    Render.insertNewRowTable(employee);
+                                })
+                            }
+                        }
+                        );
                     } else if (res.status === 400) {
                         alert('The employee does not exists in database.');
                         console.error(`ERROR. Status code: ${res.status}`);

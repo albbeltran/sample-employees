@@ -65,7 +65,7 @@ app.post('/login', (req, res) => {
 
 })
 
-app.get('/', (req, res) => {
+app.get('/empleado', (req, res) => {
     // We can iterate over a all the employees on the server or render with js and DOM
     res.send(employees);
 })
