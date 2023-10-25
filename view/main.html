@@ -51,14 +51,17 @@
         </tr>
     </table>
 
-    <script>
+    <script type="module" src="../scripts/modules/Render.js"></script>
+
+    <script type="module">
+        import Render from '../scripts/modules/Render.js'
         const table = document.getElementById('table');
 
         document.addEventListener('DOMContentLoaded', () => {
             fetchData()
                 .then(employees => {
                     employees.forEach(employee => {
-                        insertNewRowTable(employee);
+                        Render.insertNewRowTable(employee);
                     })
                 });
         });

@@ -89,6 +89,8 @@ app.post('/empleado', (req, res) => {
     // add employee to database
     let exists = false;
 
+    console.log(employees)
+
     for (let index = 0; index < employees.length; index++) {
         if (employees[index].id === req.body.emp_id) {
             exists = true;
@@ -97,7 +99,11 @@ app.post('/empleado', (req, res) => {
         }
     }
 
-    if (!exists) employees.push(req.body);
+    if (!exists) {
+        employees.push(req.body)
+        res.send(200);
+    }
+
     console.log(employees);
 })
 

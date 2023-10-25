@@ -1,3 +1,4 @@
+import Render from './Render.js';
 
 export default class AddForm {
 
@@ -25,6 +26,12 @@ export default class AddForm {
         if (this.id.errors === false
             && this.name.errors === false
             && this.dpto.errors === false) {
+                let employeeData = {
+                    emp_name: this.name.value,
+                    emp_id: this.id.value,
+                    emp_pass: this.password.value,
+                    emp_dpto: this.dpto.value
+                }
 
                 fetch('http://localhost:3000/empleado', {
                     method: 'POST',
@@ -32,19 +39,14 @@ export default class AddForm {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({
-                        emp_name: this.name.value,
-                        emp_id: this.id.value,
-                        emp_pass: this.password.value,
-                        emp_dpto: this.dpto.value
-                    })
+                    body: JSON.stringify(employeeData)
                 })
                 .then(() => {
-                    console.log('Request done')
+                    console.log('Employee added to database.');
+                    Render.insertNewRowTable(employeeData);
+                    console.log('Employee rendered.');
                 })
-                .catch(() => {
-                    console.log('Request not done')
-                })
+                .catch((err) => console.log(err))
         }
     }
 
