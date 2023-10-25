@@ -26,7 +26,7 @@ export default class AddForm {
             && this.name.errors === false
             && this.dpto.errors === false) {
 
-                fetch('http://localhost:3000/alta', {
+                fetch('http://localhost:3000/empleado', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
