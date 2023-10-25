@@ -41,6 +41,24 @@
     </form>
 
     <script type="module" src="../scripts/main.js"></script>
+
+    <h3>Empleados</h3>
+    <ul id="list">
+    </ul>
+
+    <script>
+        const list = document.getElementById('list');
+
+        (async () => {
+            const data = await fetch('http://localhost:3000/');
+            const employees = await data.json();
+            console.log(employees);
+
+            list.insertAdjacentHTML('afterbegin', employees)
+        }
+        )();
+
+    </script>
 </body>
 
 </html>

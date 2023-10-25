@@ -38,10 +38,6 @@ employees = [
 
 // endpoints
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-})
-
 app.post('/login', (req, res) => {
     // verify employee's dpto is RRHH
     // verify password
@@ -61,6 +57,27 @@ app.post('/login', (req, res) => {
         // Req employee id does not exist
         if (index === employees.length - 1) res.sendStatus(400);
     }
+})
+
+app.get('/', (req, res) => {
+    // We can iterate over a all the employees on the server or render with js and DOM
+    let employeesList = '';
+
+    employees.forEach(employee => {
+        employeesList +=
+            `<li>
+            <p>Expediente: ${employee.id}</p>
+        </li>
+        <li>
+            <p>Nombre: ${employee.name}</p>
+        </li>
+        <li>
+            <p>Departamento: ${employee.department}</p>
+        </li>`;
+    })
+
+    res.send(JSON.stringify(employeesList)
+    );
 })
 
 app.get('/empleado/:id', (req, res) => {
