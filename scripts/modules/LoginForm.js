@@ -35,12 +35,8 @@ export default class LoginForm {
                     emp_pass: this.password.value
                 })
             })
-            .then(() => {
-                console.log('Request done')
-            })
-            .catch(() => {
-                console.log('Request not done')
-            })
+                .then(res => console.log(res.status))
+                .catch(err => console.log(`Error: ${err}`))
         }
     }
 

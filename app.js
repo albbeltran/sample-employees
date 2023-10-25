@@ -45,7 +45,7 @@ app.get('/', (req, res) => {
 app.get('/busqueda/:id', (req, res) => {
     // search employee
     console.log(req.params)
-    res.send(    {
+    res.send({
         id: '2940',
         name: 'John',
         password: 'RZKQH2',
@@ -56,7 +56,22 @@ app.get('/busqueda/:id', (req, res) => {
 app.post('/login', (req, res) => {
     // verify employee's dpto is RRHH
     // verify password
-    console.log(req.body)
+
+    for (let index = 0; index < employees.length; index++) {
+        if (employees[index].id === req.body.emp_id) {
+            if (employees[index].department === 'RRHH'
+            && employees[index].password === req.body.emp_pass) {
+                res.sendStatus(200);
+                break;
+            }
+
+            res.sendStatus(401);
+            break;
+        }
+
+        // Req employee id does not exist
+        if (index === employees.length - 1) res.sendStatus(400);
+    }
 })
 
 app.post('/alta', (req, res) => {
