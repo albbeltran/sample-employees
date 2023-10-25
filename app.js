@@ -117,7 +117,7 @@ app.put('/empleado/:id', (req, res) => {
 })
 
 app.delete('/empleado/:id', (req, res) => {
-
+    console.log(req.params.id)
 })
 
 app.listen(port, () => {

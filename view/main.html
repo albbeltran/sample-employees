@@ -56,11 +56,11 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             fetchData()
-            .then(employees => {
-                employees.forEach(employee => {
-                    insertNewRowTable(employee);
-                })
-            });
+                .then(employees => {
+                    employees.forEach(employee => {
+                        insertNewRowTable(employee);
+                    })
+                });
         });
 
         async function fetchData() {
@@ -88,8 +88,13 @@
 
             updateCell.appendChild(btnUpdate);
 
-            btnRemove.addEventListener('click', removeRow);
-            btnUpdate.addEventListener('click', updateRow);
+            btnRemove.addEventListener('click', (e) => {
+                removeRow(newRow)
+            })
+
+            btnUpdate.addEventListener('click', (e) => {
+                updateRow(e)
+            });
         }
 
         function insertCellTable(newRow, value) {
@@ -97,12 +102,18 @@
             newCell.textContent = value;
         }
 
-        function removeRow() {
-            alert('Empleado dado de baja');
+        function removeRow(row) {
+            let idToRem = row.children[0].innerHTML;
+
+            fetch(`http://localhost:3000/empleado/${idToRem}`, {
+                method: 'DELETE'
+            }).then(() => {
+                row.remove();
+            }).catch(err => console.log(err))
         }
 
-        function updateRow() {
-            alert('Empleado actualizado');
+        function updateRow(row) {
+            console.log(row)
         }
     </script>
 </body>
