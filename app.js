@@ -71,15 +71,11 @@ app.get('/', (req, res) => {
 
     employees.forEach(employee => {
         employeesList +=
-            `<li>
-            <p>Expediente: ${employee.id}</p>
-        </li>
-        <li>
-            <p>Nombre: ${employee.name}</p>
-        </li>
-        <li>
-            <p>Departamento: ${employee.department}</p>
-        </li>`;
+            `<tr>
+            <td>${employee.id}</td>
+            <td>${employee.name}</td>
+            <td>${employee.department}</td>
+        </tr>`;
     })
 
     res.send(JSON.stringify(employeesList)
@@ -91,9 +87,6 @@ app.get('/empleado/:id', (req, res) => {
     let exists = false;
 
     for (let index = 0; index < employees.length; index++) {
-        console.log(req.params.id)
-        console.log(req.params)
-
         if (employees[index].id === req.params.id) {
             exists = true;
             res.send(employees[index]);
@@ -121,7 +114,18 @@ app.post('/empleado', (req, res) => {
 })
 
 app.put('/empleado/:id', (req, res) => {
+    // update employee
+    let exists = false;
 
+    for (let index = 0; index < employees.length; index++) {
+        if (employees[index].id === req.params.id) {
+            exists = true;
+            employees[index]
+            break;
+        }
+    }
+
+    if (!exists) res.sendStatus(400);
 })
 
 app.delete('/empleado/:id', (req, res) => {

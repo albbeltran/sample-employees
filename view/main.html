@@ -43,18 +43,23 @@
     <script type="module" src="../scripts/main.js"></script>
 
     <h3>Empleados</h3>
-    <ul id="list">
-    </ul>
+    <table id="table">
+        <tr>
+            <th>Expediente</th>
+            <th>Nombre</th>
+            <th>Departamento</th>
+        </tr>
+    </table>
 
     <script>
-        const list = document.getElementById('list');
+        const table = document.getElementById('table');
 
         (async () => {
             const data = await fetch('http://localhost:3000/');
             const employees = await data.json();
             console.log(employees);
 
-            list.insertAdjacentHTML('afterbegin', employees)
+            table.insertAdjacentHTML('beforeend', employees)
         }
         )();
 
