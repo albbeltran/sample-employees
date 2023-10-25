@@ -4,7 +4,6 @@ export default class Search {
     constructor() {
         this.searchForm = document.querySelector('#search-form');
         this.btnClear = document.querySelector('#btn-clear');
-        this.btnClear.addEventListener('click', this.clear);
         this.events();
     }
 

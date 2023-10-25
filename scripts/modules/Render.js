@@ -11,7 +11,7 @@ export default class Render {
         }
     }
 
-    static insertNewRowTable(employee, renderOnlyOne) {
+    static insertNewRowTable(employee) {
         Render.table = table;
 
         let newRow = Render.table.insertRow(-1);
