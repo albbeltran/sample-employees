@@ -16,7 +16,7 @@ app.use(express.urlencoded());       // for application/x-www-form-urlencoded
 
 app.use(cors({
     origin: 'http://127.0.0.1:5500',
-    methods: ['GET', 'PUT', 'POST']
+    methods: ['GET', 'PUT', 'POST', 'DELETE']
 }));
 
 // database
@@ -118,6 +118,23 @@ app.put('/empleado/:id', (req, res) => {
 
 app.delete('/empleado/:id', (req, res) => {
     console.log(req.params.id)
+
+    let exists = false;
+
+    for (let index = 0; index < employees.length; index++) {
+        if (employees[index].id === req.params.id) {
+            exists = true;
+            employees.splice(index, 1);
+            res.send(200);
+            break;
+        }
+    }
+
+    console.log(employees);
+
+    // if employee does not exist
+    // this should not happen
+    if (!exists) res.sendStatus(500);
 })
 
 app.listen(port, () => {
