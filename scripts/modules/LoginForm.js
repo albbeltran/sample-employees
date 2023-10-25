@@ -29,11 +29,22 @@ export default class LoginForm {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    emp_id: this.id.value,
-                    emp_pass: this.password.value
+                    id: this.id.value,
+                    password: this.password.value
                 })
             })
-                .then(res => console.log(res.status))
+                .then(res => {
+                    if (res.status === 200) {
+                        // if success login, redirect to main page
+                        document.location.href = '/view/main.html'
+                    } else if (res.status === 401) {
+                        alert('Incorrect password.');
+                        console.error(`ERROR. Status code: ${res.status}`);
+                    } else if (res.status === 400) {
+                        alert('The employee does not exists in database.');
+                        console.error(`ERROR. Status code: ${res.status}`);
+                    }
+                })
                 .catch(err => console.error(`Request error: ${err}`))
         }
     }

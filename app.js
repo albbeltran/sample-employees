@@ -42,15 +42,17 @@ app.post('/login', (req, res) => {
     // verify employee's dpto is RRHH
     // verify password
 
+    console.log(req.body)
     let exists = false;
 
     for (let index = 0; index < employees.length; index++) {
-        if (employees[index].id === req.body.password) {
+        if (employees[index].id === req.body.id) {
             exists = true;
 
             // if employee dpto is RRHH and password is correct send 200 success code
             if (employees[index].department === 'RRHH'
                 && employees[index].password === req.body.password) {
+                // res.redirect('http://localhost:5500/view/main.html');
                 res.sendStatus(200);
                 break;
             }
