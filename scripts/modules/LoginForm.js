@@ -38,10 +38,10 @@ export default class LoginForm {
                         // if success login, redirect to main page
                         document.location.href = '/view/main.html'
                     } else if (res.status === 401) {
-                        alert('Incorrect password.');
+                        alert('Empleado no autorizado.');
                         console.error(`ERROR. Status code: ${res.status}`);
                     } else if (res.status === 400) {
-                        alert('The employee does not exists in database.');
+                        alert('Expediente no registrado.');
                         console.error(`ERROR. Status code: ${res.status}`);
                     }
                 })

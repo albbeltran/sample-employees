@@ -46,7 +46,7 @@ export default class AddForm {
                         console.log('Employee added to database.');
                         Render.insertNewRowTable(employeeData);
                     } else if (res.status === 400) {
-                        alert('The employee already exists in database.');
+                        alert('El expediente ya está en uso.');
                         console.error(`ERROR. Status code: ${res.status}`);
                     }
                 })

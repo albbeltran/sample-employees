@@ -22,12 +22,14 @@ export default class Render {
 
         let removeCell = newRow.insertCell(-1);
         let btnRemove = document.createElement('button');
+        btnRemove.setAttribute('class', 'btn btn-danger')
         btnRemove.innerText = 'Baja';
 
         removeCell.appendChild(btnRemove);
 
         let updateCell = newRow.insertCell(-1);
         let btnUpdate = document.createElement('button');
+        btnUpdate.setAttribute('class', 'btn btn-warning')
         btnUpdate.innerText = 'Actualizar';
 
         updateCell.appendChild(btnUpdate);
