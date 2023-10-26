@@ -18,7 +18,7 @@ export default class Render {
 
         Render.insertCellTable(newRow, employee["id"]);
         Render.insertCellTable(newRow, employee["name"]);
-        Render.insertCellTable(newRow, employee["deparment"]);
+        Render.insertCellTable(newRow, employee["department"]);
 
         let removeCell = newRow.insertCell(-1);
         let btnRemove = document.createElement('button');
