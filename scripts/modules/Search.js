@@ -64,7 +64,7 @@ export default class Search {
                     }
                     );
                 } else if (res.status === 400) {
-                    alert('The employee does not exists in database.');
+                    alert('Empleado no encontrado.');
                     console.error(`ERROR. Status code: ${res.status}`);
                 }
             })
@@ -77,7 +77,7 @@ export default class Search {
         // regular expression to check if the id is alphanumeric
         if (this.id.value != '' && !/^([a-zA-Z0-9]+)$/.test(this.id.value)) {
             this.id.errors = true;
-            alert('Username can only contain letters and numbers.');
+            alert('El usuario solo puede contener letras y números.');
         }
     }
 }

@@ -13,9 +13,9 @@
 
 <body class="w-75 mt-5 mb-5 m-auto">
 
-    <header class="mb-5">
+    <header class="mb-3">
         <form id="logout" class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary " id="btn-logout">Cerrar sesión</button>
+            <button type="button" class="btn btn-primary " id="btn-logout">Cerrar sesión</button>
         </form>
     </header>
 
@@ -73,7 +73,8 @@
 
     <script type="module">
         import Render from '../scripts/modules/Render.js'
-        const table = document.getElementById('table');
+        const table = document.querySelector('#table');
+        const btnLogout = document.querySelector('#btn-logout');
 
         document.addEventListener('DOMContentLoaded', () => {
             fetchData()
@@ -90,6 +91,11 @@
             const data = await fetch('http://localhost:3000/empleado');
             return await data.json();
         }
+
+        btnLogout.addEventListener('click', () => {
+            // if logout, redirect to login page
+            document.location.href = '/view/'
+        });
     </script>
 </body>
 
