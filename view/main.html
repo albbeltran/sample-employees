@@ -12,47 +12,61 @@
 </head>
 
 <body class="w-75 mt-5 mb-5 m-auto">
-    <h3>Alta de empleado</h3>
-    <form id="add-form" class="mb-5 w-50">
-        <div class="mb-3">
-            <label for="emp_name" class="form-label">Nombre: </label>
-            <input type="text" class="form-control mb-3" name="name" id="emp_name">
 
-            <label for="emp_id" class="form-label">Expediente:</label>
-            <input class="form-control mb-3" type="text" name="id" id="emp_id">
+    <header class="mb-5">
+        <form id="logout" class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary " id="btn-logout">Cerrar sesión</button>
+        </form>
+    </header>
 
-            <label for="emp_dpto" class="form-label">Departamento:</label>
-            <select class="form-select mb-3" name="department" id="emp_dpto">
-                <option value="TI">Información de las Tecnologías</option>
-                <option value="SALES">Ventas</option>
-                <option value="MARKETING">Mercadoctenia</option>
-                <option value="RRHH">Recursos Humanos</option>
-            </select>
-
-            <label for="emp_pass" class="form-label">Contraseña:</label>
-            <input type="password" class="form-control mb-3" name="password" id="emp_pass">
-
-            <button type="submit" class="btn btn-primary">Alta</button>
+    <main>
+        <div class="mb-5">
+            <h3>Empleados</h3>
+            <table class="table" id="table">
+                <tr>
+                    <th scope="col">Expediente</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Departamento</th>
+                </tr>
+            </table>
         </div>
-    </form>
-
-
-    <h3>Empleados</h3>
-    <table class="table mb-5" id="table">
-        <tr>
-            <th scope="col">Expediente</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Departamento</th>
-        </tr>
-    </table>
-
-    <form id="search-form" class="w-25">
-        <label for="emp_search" class="form-label">Buscar empleado:</label>
-        <input type="text" class="form-control mb-3" name="id" id="emp_search" placeholder="Expediente">
-
-        <button type="submit" class="btn btn-primary">Buscar</button>
-        <button id="btn-clear" class="btn btn-warning">Limpiar</button>
-    </form>
+    
+        <div class="mb-5 w-25">
+            <form id="search-form">
+                <label for="emp_search" class="form-label">Buscar empleado:</label>
+                <input type="text" class="form-control mb-3" name="id" id="emp_search" placeholder="Expediente">
+        
+                <button type="submit" class="btn btn-primary">Buscar</button>
+                <button id="btn-clear" class="btn btn-warning">Limpiar</button>
+            </form>
+        </div>
+    
+        <div class="mb-5 w-50">
+            <h3>Alta de empleado</h3>
+            <form id="add-form">
+                <div class="mb-3">
+                    <label for="emp_name" class="form-label">Nombre: </label>
+                    <input type="text" class="form-control mb-3" name="name" id="emp_name">
+        
+                    <label for="emp_id" class="form-label">Expediente:</label>
+                    <input class="form-control mb-3" type="text" name="id" id="emp_id">
+        
+                    <label for="emp_dpto" class="form-label">Departamento:</label>
+                    <select class="form-select mb-3" name="department" id="emp_dpto">
+                        <option value="TI">Información de las Tecnologías</option>
+                        <option value="SALES">Ventas</option>
+                        <option value="MARKETING">Mercadoctenia</option>
+                        <option value="RRHH">Recursos Humanos</option>
+                    </select>
+        
+                    <label for="emp_pass" class="form-label">Contraseña:</label>
+                    <input type="password" class="form-control mb-3" name="password" id="emp_pass">
+        
+                    <button type="submit" class="btn btn-primary">Alta</button>
+                </div>
+            </form>
+        </div>
+    </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
     <script type="module" src="../scripts/main.js"></script>
