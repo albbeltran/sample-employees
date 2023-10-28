@@ -3,33 +3,36 @@ import Render from './Render.js';
 export default class Search {
     constructor() {
         this.searchForm = document.querySelector('#search-form');
+        this.id = document.querySelector('#emp_search');
         this.btnClear = document.querySelector('#btn-clear');
         this.events();
     }
 
     events() {
         this.searchForm.addEventListener('submit', (e) => {
-            // every submit, update id
-            this.id = document.querySelector('#emp_search');
             e.preventDefault();
             this.formSubmitHandler();
         })
 
-        this.btnClear.addEventListener('click', () => {
-            // if clear, then there is no id to search
-            this.id = undefined;
-            this.formSubmitHandler();
+        this.btnClear.addEventListener('click', (e) => {
+            if (this.id.value === '') {
+                // clear to send a req to get all employees
+                this.id.value = '';
+                this.formSubmitHandler();
+            }
         })
     }
 
     selectPath() {
-        if (this.id !== undefined) this.path = `http://localhost:3000/empleado/${this.id.value}`;
-        // if id is undefined, select all elements
+        if (this.id.value !== '') {
+            this.path = `http://localhost:3000/empleado/${this.id.value}`;
+        }
+        // if id is empty, select all elements
         else this.path = 'http://localhost:3000/empleado/'
     }
 
     formSubmitHandler() {
-        console.log(this.id)
+        console.log(this.id.value)
         this.selectPath();
 
         if (this.id) {
