@@ -15,7 +15,9 @@ export default class Search {
         })
 
         this.btnClear.addEventListener('click', (e) => {
-            if (this.id.value === '') {
+            e.stopPropagation();
+            e.preventDefault();
+            if (this.id.value !== '') {
                 // clear to send a req to get all employees
                 this.id.value = '';
                 this.formSubmitHandler();
@@ -37,7 +39,7 @@ export default class Search {
 
         if (this.id) {
             this.idHandler();
-            this.id.value = '';
+            // this.id.value = '';
             if (this.id.errors) return;
         }
 
