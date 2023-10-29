@@ -12,4 +12,7 @@ router.post('/empleado', employeeController.register);
 router.get('/', employeeController.home);
 router.get('/empleado/:id', employeeController.ifEmployeeExists);
 
+// put methods
+router.put('/empleado/:id', employeeController.update);
+
 module.exports = router;

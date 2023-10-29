@@ -55,8 +55,6 @@ Employee.prototype.search = function () {
 
 // Find the username to load Employee page
 Employee.findById = function (id) {
-    // search employee
-
     return new Promise(async (resolve, reject) => {
         try {
             // need to access prototype.path because findById it's not an Employee method
@@ -66,7 +64,6 @@ Employee.findById = function (id) {
             let exists = false;
 
             for (let index = 0; index < employees.length; index++) {
-                console.log(employees[index].id, id)
                 if (employees[index].id === id) {
                     exists = true;
                     resolve(employees[index]);
@@ -107,6 +104,36 @@ Employee.prototype.register = function () {
             }
         } catch {
             reject();
+        }
+    })
+}
+
+Employee.prototype.update = function () {
+    // search employee
+
+    return new Promise(async (resolve, reject) => {
+        try {
+            const data = await fetch(this.path);
+            const employees = await data.json();
+
+            let exists = false;
+
+            for (let index = 0; index < employees.length; index++) {
+                if (employees[index].id === this.data.id) {
+                    exists = true;
+
+                    employees[index].id = this.data.id;
+                    employees[index].name = this.data.name;
+                    employees[index].department = this.data.department;
+
+                    resolve(employees);
+                    break;
+                }
+            }
+
+            if (!exists) reject();
+        } catch {
+            reject()
         }
     })
 }

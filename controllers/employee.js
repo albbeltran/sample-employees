@@ -28,7 +28,6 @@ async function ifEmployeeExists(req, res) {
     } catch {
         res.sendStatus(400);
     }
-
 }
 
 async function register(req, res) {
@@ -41,7 +40,21 @@ async function register(req, res) {
     }
 }
 
+async function update(req, res) {
+    try {
+        const employee = new Employee(req.body);
+        // first we check if employee exists
+        await Employee.findById(req.params.id);
+        // update the employee
+        const employees = await employee.update();
+        res.render('home', { employees });
+    } catch {
+        res.sendStatus(400);
+    }
+}
+
 exports.login = login;
 exports.home = home;
 exports.ifEmployeeExists = ifEmployeeExists;
 exports.register = register;
+exports.update = update;
