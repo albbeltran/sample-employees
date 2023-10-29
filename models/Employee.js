@@ -12,7 +12,6 @@ Employee.prototype.path = 'https://mocki.io/v1/80cbc9e5-2e9a-42a0-a6f5-a5c5f6a29
 Employee.prototype.login = function () {
     // verify employee's dpto is RRHH
     // verify password
-    console.log('Employee model running...');
 
     return new Promise(async (resolve, reject) => {
         const data = await fetch(this.path);
@@ -38,6 +37,19 @@ Employee.prototype.login = function () {
         }
         // Req employee id does not exist
         if (!exists) reject();
+    })
+}
+
+Employee.prototype.search = function() {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const data = await fetch(this.path);
+            const employees = await data.json();
+            resolve(employees);
+        } catch {
+            reject();
+        }
+        
     })
 }
 

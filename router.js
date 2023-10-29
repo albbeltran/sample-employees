@@ -7,4 +7,6 @@ const employeeController = require('./controllers/employee');
 // routes
 router.post('/login', employeeController.login);
 
+router.get('/', employeeController.home);
+
 module.exports = router;

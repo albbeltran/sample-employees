@@ -28,59 +28,7 @@ app.use(cors({
     methods: ['GET', 'PUT', 'POST', 'DELETE']
 }));
 
-
-// database
-
-employees = [
-    {
-        id: '2940',
-        name: 'John',
-        password: 'RZKQH2',
-        department: 'RRHH',
-    },
-    {
-        id: '2950',
-        name: 'Susan',
-        password: 'QWERTY',
-        department: 'VENTAS',
-    }
-]
-
 // endpoints
-
-// app.post('/login', (req, res) => {
-//     // verify employee's dpto is RRHH
-//     // verify password
-
-//     console.log(req.body)
-//     let exists = false;
-
-//     for (let index = 0; index < employees.length; index++) {
-//         if (employees[index].id === req.body.id) {
-//             exists = true;
-
-//             // if employee dpto is RRHH and password is correct send 200 success code
-//             if (employees[index].department === 'RRHH'
-//                 && employees[index].password === req.body.password) {
-//                 // res.redirect('http://localhost:5500/view/main.html');
-//                 res.sendStatus(200);
-//                 break;
-//             }
-
-//             // otherwise, send 401 error (No Authorized)
-//             res.sendStatus(401);
-//             break;
-//         }
-//     }
-//     // Req employee id does not exist
-//     if (!exists) res.sendStatus(400);
-
-// })
-
-app.get('/empleado', (req, res) => {
-    // We can iterate over a all the employees on the server or render with js and DOM
-    res.send(employees);
-})
 
 app.get('/empleado/:id', (req, res) => {
     // search employee
