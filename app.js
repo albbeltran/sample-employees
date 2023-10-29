@@ -32,7 +32,7 @@ employees = [
         id: '2950',
         name: 'Susan',
         password: 'QWERTY',
-        department: 'SALES',
+        department: 'VENTAS',
     }
 ]
 

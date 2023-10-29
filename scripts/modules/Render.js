@@ -55,7 +55,8 @@ export default class Render {
             method: 'DELETE'
         }).then(() => {
             row.remove();
-        }).catch(err => console.log(err))
+            alert('Empleado dado de baja exitosamente.');
+        }).catch(err => console.log(err));
     }
 
     static updateRow(row) {

@@ -15,6 +15,8 @@ export default class AddForm {
         this.form.addEventListener('submit', e => {
             e.preventDefault();
             this.formSubmitHandler();
+
+            this.form.reset();
         });
     }
 
@@ -45,6 +47,7 @@ export default class AddForm {
                     if (res.status === 200) {
                         console.log('Employee added to database.');
                         Render.insertNewRowTable(employeeData);
+                        alert('Empleado dado de alta exitosamente.');
                     } else if (res.status === 400) {
                         alert('El expediente ya está en uso.');
                         console.error(`ERROR. Status code: ${res.status}`);
