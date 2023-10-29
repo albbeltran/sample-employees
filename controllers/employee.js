@@ -31,6 +31,17 @@ async function ifEmployeeExists(req, res) {
 
 }
 
+async function register(req, res) {
+    try {
+        const employee = new Employee(req.body);
+        const employees = await employee.register();
+        res.render('home', { employees });
+    } catch {
+        res.sendStatus(400);
+    }
+}
+
 exports.login = login;
 exports.home = home;
 exports.ifEmployeeExists = ifEmployeeExists;
+exports.register = register;

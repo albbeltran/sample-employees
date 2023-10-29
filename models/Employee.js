@@ -76,9 +76,39 @@ Employee.findById = function (id) {
 
             if (!exists) reject();
         } catch {
-        reject()
-    }
-})
+            reject()
+        }
+    })
+}
+
+Employee.prototype.register = function () {
+    // add employee to database
+
+    console.log(this.data)
+    return new Promise(async (resolve, reject) => {
+        try {
+            const data = await fetch(this.path);
+            const employees = await data.json();
+
+            let exists = false;
+
+            for (let index = 0; index < employees.length; index++) {
+                if (employees[index].id === this.data.id) {
+                    console.log('Employee exists')
+                    exists = true;
+                    reject();
+                    break;
+                }
+            }
+
+            if (!exists) {
+                employees.push(this.data);
+                resolve(employees);
+            }
+        } catch {
+            reject();
+        }
+    })
 }
 
 module.exports = Employee;
