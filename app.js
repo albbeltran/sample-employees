@@ -4,20 +4,30 @@ const cors = require('cors');
 
 const app = express();
 
+const router = require('./router');
+
 dotenv.config();
 
 const port = process.env.PORT;
-
 
 // middleware
 
 app.use(express.json());             // for application/json
 app.use(express.urlencoded());       // for application/x-www-form-urlencoded
 
+// view engine
+app.set('views', './views');
+app.set('view engine', 'ejs');
+
+// router
+app.use('/', router);
+
+// cors
 app.use(cors({
     origin: 'http://127.0.0.1:5500',
     methods: ['GET', 'PUT', 'POST', 'DELETE']
 }));
+
 
 // database
 
@@ -38,34 +48,34 @@ employees = [
 
 // endpoints
 
-app.post('/login', (req, res) => {
-    // verify employee's dpto is RRHH
-    // verify password
+// app.post('/login', (req, res) => {
+//     // verify employee's dpto is RRHH
+//     // verify password
 
-    console.log(req.body)
-    let exists = false;
+//     console.log(req.body)
+//     let exists = false;
 
-    for (let index = 0; index < employees.length; index++) {
-        if (employees[index].id === req.body.id) {
-            exists = true;
+//     for (let index = 0; index < employees.length; index++) {
+//         if (employees[index].id === req.body.id) {
+//             exists = true;
 
-            // if employee dpto is RRHH and password is correct send 200 success code
-            if (employees[index].department === 'RRHH'
-                && employees[index].password === req.body.password) {
-                // res.redirect('http://localhost:5500/view/main.html');
-                res.sendStatus(200);
-                break;
-            }
+//             // if employee dpto is RRHH and password is correct send 200 success code
+//             if (employees[index].department === 'RRHH'
+//                 && employees[index].password === req.body.password) {
+//                 // res.redirect('http://localhost:5500/view/main.html');
+//                 res.sendStatus(200);
+//                 break;
+//             }
 
-            // otherwise, send 401 error (No Authorized)
-            res.sendStatus(401);
-            break;
-        }
-    }
-    // Req employee id does not exist
-    if (!exists) res.sendStatus(400);
+//             // otherwise, send 401 error (No Authorized)
+//             res.sendStatus(401);
+//             break;
+//         }
+//     }
+//     // Req employee id does not exist
+//     if (!exists) res.sendStatus(400);
 
-})
+// })
 
 app.get('/empleado', (req, res) => {
     // We can iterate over a all the employees on the server or render with js and DOM
