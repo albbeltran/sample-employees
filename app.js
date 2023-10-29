@@ -30,21 +30,6 @@ app.use(cors({
 
 // endpoints
 
-app.get('/empleado/:id', (req, res) => {
-    // search employee
-    let exists = false;
-
-    for (let index = 0; index < employees.length; index++) {
-        if (employees[index].id === req.params.id) {
-            exists = true;
-            res.send(employees[index]);
-            break;
-        }
-    }
-
-    if (!exists) res.sendStatus(400);
-})
-
 app.post('/empleado', (req, res) => {
     // add employee to database
     let exists = false;

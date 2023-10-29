@@ -9,4 +9,6 @@ router.post('/login', employeeController.login);
 
 router.get('/', employeeController.home);
 
+router.get('/empleado/:id', employeeController.ifEmployeeExists);
+
 module.exports = router;

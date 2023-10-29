@@ -40,7 +40,7 @@ Employee.prototype.login = function () {
     })
 }
 
-Employee.prototype.search = function() {
+Employee.prototype.search = function () {
     return new Promise(async (resolve, reject) => {
         try {
             const data = await fetch(this.path);
@@ -49,8 +49,36 @@ Employee.prototype.search = function() {
         } catch {
             reject();
         }
-        
+
     })
+}
+
+// Find the username to load Employee page
+Employee.findById = function (id) {
+    // search employee
+
+    return new Promise(async (resolve, reject) => {
+        try {
+            // need to access prototype.path because findById it's not an Employee method
+            const data = await fetch(Employee.prototype.path);
+            const employees = await data.json();
+
+            let exists = false;
+
+            for (let index = 0; index < employees.length; index++) {
+                console.log(employees[index].id, id)
+                if (employees[index].id === id) {
+                    exists = true;
+                    resolve(employees[index]);
+                    break;
+                }
+            }
+
+            if (!exists) reject();
+        } catch {
+        reject()
+    }
+})
 }
 
 module.exports = Employee;
