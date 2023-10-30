@@ -1,12 +1,5 @@
-import LoginForm from './modules/LoginForm.js';
-import Search from './modules/Search.js';
-import AddForm from './modules/AddForm.js';
+import Update from './modules/update.js';
+import Delete from './modules/Delete.js';
 
-// if the login form exists on the current page
-if(document.querySelector('#login-form')) new LoginForm();
-
-// if the search form exists on the current page
-if(document.querySelector('#search-form')) new Search();
-
-// if the add form exists on the current page
-if(document.querySelector('#add-form')) new AddForm();
+if(document.querySelector('#update-btn')) new Update();
+if(document.querySelector('#delete-btn')) new Delete();

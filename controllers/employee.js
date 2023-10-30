@@ -48,7 +48,7 @@ async function home(req, res) {
 async function ifEmployeeExists(req, res) {
     try {
         const employee = await Employee.findById(req.query.id);
-        console.log(employee)
+        console.log('HEY')
         res.render('employee', { employee: employee[0] });
     } catch {
         res.sendStatus(400);
@@ -68,9 +68,6 @@ async function register(req, res) {
 async function update(req, res) {
     try {
         const employee = new Employee(req.body);
-        // first we check if employee exists
-        // await Employee.findById(req.params.id);
-        // update the employee
         const employees = await employee.update();
         res.render('home', { employees });
     } catch {
