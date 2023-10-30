@@ -35,7 +35,6 @@ async function login(req, res) {
 }
 
 async function logout(req, res) {
-    console.log('LOGOUT')
     try {
         res.clearCookie('jwt');
         res.redirect('/');
@@ -66,8 +65,9 @@ async function ifEmployeeExists(req, res) {
 async function register(req, res) {
     try {
         const employee = new Employee(req.body);
-        const employees = await employee.register();
-        res.render('home', { employees });
+        const employeeAdded = await employee.register();
+        // res.render('employee', { employee: employeeAdded });
+        res.redirect(303, `/empleado/${req.body.id}`);
     } catch {
         res.sendStatus(400);
     }

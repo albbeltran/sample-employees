@@ -30,9 +30,7 @@ Employee.prototype.register = function () {
             await query("INSERT INTO employees_sample.employees(id,name,password,department) VALUES (?, ?, ?, ?)",
                 [this.data.id, this.data.name, this.data.password, this.data.department])
 
-            const employees = await this.getAllEmployees();
-
-            resolve(employees);
+            resolve();
         } catch {
             reject();
         }
@@ -45,11 +43,7 @@ Employee.prototype.update = function () {
             await query('UPDATE employees SET name = ?, department = ? WHERE id = ?',
                 [this.data.name, this.data.department, this.data.id]);
 
-            // In MySQL update query doen't return the affected row
-            // a new query is required to get the employee updated
-            const employee = await Employee.findById(this.data.id);
-            
-            resolve(employee);
+            resolve();
         } catch {
             reject()
         }
