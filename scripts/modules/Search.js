@@ -1,10 +1,9 @@
-import Render from './Render.js';
+import { idHandler } from "./inputHandlers";
 
 export default class Search {
     constructor() {
         this.searchForm = document.querySelector('#search-form');
         this.id = document.querySelector('#emp_search');
-        this.btnClear = document.querySelector('#btn-clear');
         this.events();
     }
 
@@ -13,71 +12,22 @@ export default class Search {
             e.preventDefault();
             this.formSubmitHandler();
         })
-
-        this.btnClear.addEventListener('click', (e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            if (this.id.value !== '') {
-                // clear to send a req to get all employees
-                this.id.value = '';
-                this.formSubmitHandler();
-            }
-        })
-    }
-
-    selectPath() {
-        if (this.id.value !== '') {
-            this.path = `http://localhost:3000/empleado/${this.id.value}`;
-        }
-        // if id is empty, select all elements
-        else this.path = 'http://localhost:3000/empleado/'
     }
 
     formSubmitHandler() {
-        console.log(this.id.value)
-        this.selectPath();
+        this.id.errors = idHandler(this.id);
 
-        if (this.id) {
-            this.idHandler();
-            // this.id.value = '';
-            if (this.id.errors) return;
-        }
-
-        fetch(this.path, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(res => {
-                if (res.status === 200) {
-                    res.json().then(employees => {
-                        Render.clearTable();
-
-                        if (!employees.length) Render.insertNewRowTable(employees, true)
-                        else {
-                            employees.forEach(employee => {
-                                Render.insertNewRowTable(employee);
-                            })
-                        }
-                    }
-                    );
-                } else if (res.status === 400) {
-                    alert('Empleado no encontrado.');
-                    console.error(`ERROR. Status code: ${res.status}`);
-                }
-            })
-            .catch(err => console.error(`Request error: ${err}`))
+        if (this.id.errors === false) this.searchReq();
     }
 
-    idHandler() {
-        this.id.errors = false;
+    async searchReq() {
+        console.log(this.id.value)
 
-        // regular expression to check if the id is alphanumeric
-        if (this.id.value != '' && !/^([a-zA-Z0-9]+)$/.test(this.id.value)) {
-            this.id.errors = true;
-            alert('El usuario solo puede contener letras y números.');
-        }
+        const res = await fetch(`/empleado/${this.id.value}`)
+        // redirect happens in backend, the url is fetched and sent to the frontend
+        // needed to do manual redirect in the browser
+        this.redirectUrl = res.url;
+        if (this.redirectUrl && this.redirectUrl !== "")
+            window.location = this.redirectUrl;
     }
 }
