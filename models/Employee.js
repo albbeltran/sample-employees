@@ -109,8 +109,6 @@ Employee.prototype.register = function () {
 }
 
 Employee.prototype.update = function () {
-    // search employee
-
     return new Promise(async (resolve, reject) => {
         try {
             const data = await fetch(this.path);
@@ -132,6 +130,27 @@ Employee.prototype.update = function () {
             }
 
             if (!exists) reject();
+        } catch {
+            reject()
+        }
+    })
+}
+
+Employee.prototype.remove = function () {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const data = await fetch(this.path);
+            const employees = await data.json();
+
+            for (let index = 0; index < employees.length; index++) {
+                // this.data equals to req.params.id
+                if (employees[index].id === this.data) {
+                    employees.splice(index, 1);
+                    resolve(employees);
+                    break;
+                }
+            }
+
         } catch {
             reject()
         }
