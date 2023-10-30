@@ -45,9 +45,11 @@ Employee.prototype.update = function () {
             await query('UPDATE employees SET name = ?, department = ? WHERE id = ?',
                 [this.data.name, this.data.department, this.data.id]);
 
-            const employees = await this.getAllEmployees();
-
-            resolve(employees);
+            // In MySQL update query doen't return the affected row
+            // a new query is required to get the employee updated
+            const employee = await Employee.findById(this.data.id);
+            
+            resolve(employee);
         } catch {
             reject()
         }
@@ -69,7 +71,7 @@ Employee.prototype.remove = function () {
 Employee.prototype.getAllEmployees = function () {
     return new Promise(async (resolve, reject) => {
         try {
-            const employees = await query('SELECT * FROM employees', []);
+            const employees = await query('SELECT id, name, department FROM employees', []);
             resolve(employees);
         } catch {
             reject();
@@ -81,8 +83,8 @@ Employee.prototype.getAllEmployees = function () {
 Employee.findById = function (id) {
     return new Promise(async (resolve, reject) => {
         try {
-            const employee = await query('SELECT * FROM employees WHERE id = ?', [id]);
-            resolve(employee);
+            const employee = await query('SELECT id, name, department FROM employees WHERE id = ?', [id]);
+            resolve(employee[0]);
         } catch {
             reject()
         }

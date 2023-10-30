@@ -47,7 +47,7 @@ async function home(req, res) {
 async function ifEmployeeExists(req, res) {
     try {
         const employee = await Employee.findById(req.query.id);
-        res.render('employee', { employee: employee[0] });
+        res.render('employee', { employee });
     } catch {
         res.sendStatus(400);
     }
@@ -64,17 +64,18 @@ async function register(req, res) {
 }
 
 async function update(req, res) {
+    console.log('Updating...')
     try {
         const employee = new Employee(req.body);
-        const employees = await employee.update();
-        res.render('home', { employees });
+        // update the employee
+        const employeeUpdated = await employee.update();
+        res.render('employee', { employee: employeeUpdated });
     } catch {
         res.sendStatus(400);
     }
 }
 
 async function remove(req, res) {
-    // console.log(req.params.id)
     try {
         const employee = new Employee(req.params.id);
         // remove the employee
