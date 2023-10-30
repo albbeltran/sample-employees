@@ -13,7 +13,7 @@ Employee.prototype.login = function () {
 
             if (attemptedEmployee[0].department === 'RRHH'
                 && attemptedEmployee[0].password === this.data.password) {
-                resolve();
+                resolve(attemptedEmployee);
             }
 
             reject();

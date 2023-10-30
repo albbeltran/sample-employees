@@ -9,7 +9,7 @@ router.post('/login', employeeController.login);
 router.post('/empleado', employeeController.register);
 
 // get methods
-router.get('/', employeeController.home);
+router.get('/', employeeController.verifyToken, employeeController.home);
 router.get('/empleado/:id', employeeController.ifEmployeeExists);
 
 // put methods

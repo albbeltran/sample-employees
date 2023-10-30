@@ -1,9 +1,34 @@
 const Employee = require('../models/Employee');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+dotenv.config();
+
+function verifyToken(req, res, next) {
+    token = req.cookies.jwt;
+
+    if (!token) {
+        res.render('index');
+    } else {
+        jwt.verify(token, process.env.JWTSECRET, (err, decoded) => {
+            if (err) res.render('index');
+            else next();
+        });
+    }
+}
 
 async function login(req, res) {
+
     try {
         const employee = new Employee(req.body);
-        await employee.login();
+        const employeeAuth = await employee.login();
+
+        const employeeForToken = {
+            id: employeeAuth[0].id,
+        }
+
+        const token = jwt.sign({ id: employeeForToken.id }, process.env.JWTSECRET, { expiresIn: '1d' });
+
+        res.cookie('jwt', token);
         res.redirect('/');
     } catch {
         res.sendStatus(400);
@@ -12,7 +37,7 @@ async function login(req, res) {
 
 async function home(req, res) {
     try {
-        const employee = new Employee(req.body);
+        const employee = new Employee();
         const employees = await employee.getAllEmployees();
         res.render('home', { employees });
     } catch {
@@ -65,6 +90,7 @@ async function remove(req, res) {
     }
 }
 
+exports.verifyToken = verifyToken;
 exports.login = login;
 exports.home = home;
 exports.ifEmployeeExists = ifEmployeeExists;
