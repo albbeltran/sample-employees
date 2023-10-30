@@ -6,6 +6,7 @@ const employeeController = require('./controllers/employee');
 
 // post methods
 router.post('/login', employeeController.login);
+router.post('/logout', employeeController.logout);
 router.post('/empleado', employeeController.register);
 
 // get methods

@@ -34,6 +34,16 @@ async function login(req, res) {
     }
 }
 
+async function logout(req, res) {
+    console.log('LOGOUT')
+    try {
+        res.clearCookie('jwt');
+        res.redirect('/');
+    } catch {
+        res.sendStatus(400);
+    }
+}
+
 async function home(req, res) {
     try {
         const employee = new Employee();
@@ -89,6 +99,7 @@ async function remove(req, res) {
 
 exports.verifyToken = verifyToken;
 exports.login = login;
+exports.logout = logout;
 exports.home = home;
 exports.ifEmployeeExists = ifEmployeeExists;
 exports.register = register;
