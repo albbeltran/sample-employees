@@ -38,21 +38,12 @@ Employee.prototype.login = function () {
 Employee.prototype.register = function () {
     return new Promise(async (resolve, reject) => {
         try {
+            await query("INSERT INTO employees_sample.employees(id,name,password,department) VALUES (?, ?, ?, ?)", 
+            [this.data.id, this.data.name, this.data.password, this.data.department])
+
             const employees = await this.getAllEmployees();
-            let exists = false;
-
-            for (let index = 0; index < employees.length; index++) {
-                if (employees[index].id === this.data.id) {
-                    exists = true;
-                    reject();
-                    break;
-                }
-            }
-
-            if (!exists) {
-                employees.push(this.data);
-                resolve(employees);
-            }
+            
+            resolve(employees);
         } catch {
             reject();
         }
@@ -62,15 +53,12 @@ Employee.prototype.register = function () {
 Employee.prototype.update = function () {
     return new Promise(async (resolve, reject) => {
         try {
-            const index = await this.getEmployeeIndex(this.data.id);
+            await query('UPDATE employees SET name = ?, department = ? WHERE id = ?',
+                [this.data.name, this.data.department, this.data.id]);
+
             const employees = await this.getAllEmployees();
 
-            employees[index].id = this.data.id;
-            employees[index].name = this.data.name;
-            employees[index].department = this.data.department;
-
             resolve(employees);
-
         } catch {
             reject()
         }
@@ -80,11 +68,8 @@ Employee.prototype.update = function () {
 Employee.prototype.remove = function () {
     return new Promise(async (resolve, reject) => {
         try {
-            // this.data equals to req.params.id
-            const index = await this.getEmployeeIndex(this.data);
+            await query('DELETE FROM employees WHERE id = ?', [this.data]);
             const employees = await this.getAllEmployees();
-
-            employees.splice(index, 1);
 
             resolve(employees);
         } catch {
@@ -108,39 +93,12 @@ Employee.prototype.getAllEmployees = function () {
 Employee.findById = function (id) {
     return new Promise(async (resolve, reject) => {
         try {
-            // need to access prototype method because findById it's not an Employee method
-            const employees = await Employee.prototype.getAllEmployees();
-
-            let exists = false;
-
-            for (let index = 0; index < employees.length; index++) {
-                if (employees[index].id === id) {
-                    exists = true;
-                    resolve(employees[index]);
-                    break;
-                }
-            }
-
-            if (!exists) reject();
+            const employee = await query('SELECT * FROM employees WHERE id = ?', [id]);
+            resolve(employee);
         } catch {
             reject()
         }
     })
-}
-
-// get employee index for internal methods such as update and remove
-Employee.prototype.getEmployeeIndex = function (id) {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const employees = await this.getAllEmployees();
-
-            for (let index = 0; index < employees.length; index++) {
-                if (employees[index].id === id) resolve(index);
-            }
-        } catch {
-            reject();
-        }
-    });
 }
 
 module.exports = Employee;
