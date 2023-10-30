@@ -33,14 +33,54 @@
                 </p>
             </div>
             <div>
-                <button id="update-btn" class="btn btn-warning" name=<%=employee.id %>>Actualizar</button>
+                <button id="update-btn" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updateModal"
+                    name=<%=employee.id %>>Actualizar</button>
                 <button id="delete-btn" class="btn btn-danger" name=<%=employee.id %>>Baja</button>
             </div>
         </div>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
-    <script src="/main-bundled.js"></script>
+    <div class="modal fade mbt-5" tabindex="-1" id="updateModal" aria-labelledby="updateModalLabel" aria-hidden="true"
+        style="top: 20%;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar empleado</h5>
+                </div>
+                <form id="add-form" method="put" action="/empleado/<%= employee.id %>">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="emp_name" class="form-label">Nombre: </label>
+                            <input type="text" class="form-control mb-3" name="name" id="emp_name"
+                                value="<%= employee.name %>">
+
+                            <label for="emp_id" class="form-label">Expediente:</label>
+                            <input class="form-control mb-3" type="text" name="id" id="emp_id"
+                                value="<%= employee.id %>">
+
+                            <label for="emp_dpto" class="form-label">Departamento:</label>
+                            <select class="form-select mb-3" name="department" id="emp_dpto">
+                                <option value="INFORMATICA">Informática</option>
+                                <option value="VENTAS">Ventas</option>
+                                <option value="MERCADOCTENIA">Mercadoctenia</option>
+                                <option value="RRHH">Recursos Humanos</option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            id="close-modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+        <script src="/main-bundled.js"></script>
 </body>
 
 </html>

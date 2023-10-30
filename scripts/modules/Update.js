@@ -8,16 +8,6 @@ export default class Update {
     events() {
         this.updateBtn.addEventListener('click', e => {
             e.preventDefault();
-            
-            this.updateReq();
         });
-    }
-
-    async updateReq() {
-        // this.idToUpd = this.updateBtn.getAttribute('name');
-        // await fetch(`/empleado/${this.idToUpd}`, {
-        //     method: 'PUT'
-        // })
-        console.log('PUT REQ');
     }
 }
