@@ -1,5 +1,4 @@
-// Model for employee with connection to database
-const fetch = require('node-fetch');
+const { query } = require('../database/db');
 
 class Employee {
     constructor(data) {
@@ -15,7 +14,7 @@ Employee.prototype.login = function () {
         let exists = false;
 
         for (let index = 0; index < employees.length; index++) {
-            if (employees[index].id === this.data.id) {
+            if (employees[index].id === Number(this.data.id)) {
                 exists = true;
 
                 // verify employee's dpto is RRHH
@@ -97,13 +96,11 @@ Employee.prototype.remove = function () {
 Employee.prototype.getAllEmployees = function () {
     return new Promise(async (resolve, reject) => {
         try {
-            const data = await fetch(this.path);
-            const employees = await data.json();
+            const employees = await query('SELECT * FROM employees', []);
             resolve(employees);
         } catch {
             reject();
         }
-
     })
 }
 
