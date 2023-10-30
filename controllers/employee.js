@@ -6,23 +6,22 @@ async function login(req, res) {
         await employee.login();
         res.redirect('/');
     } catch {
-        res.send('FAILED');
+        res.sendStatus(400);
     }
 }
 
 async function home(req, res) {
     try {
         const employee = new Employee(req.body);
-        const employees = await employee.search();
+        const employees = await employee.getAllEmployees();
         res.render('home', { employees });
     } catch {
-        res.send('FAILED');
+        res.sendStatus(400);
     }
 }
 
 async function ifEmployeeExists(req, res) {
     try {
-        console.log(req.params.id)
         const employee = await Employee.findById(req.params.id);
         res.render('employee', { employee });
     } catch {
@@ -60,7 +59,6 @@ async function remove(req, res) {
         await Employee.findById(req.params.id);
         // remove the employee
         const employees = await employee.remove();
-        console.log('hey')
         res.render('home', { employees });
     } catch {
         res.sendStatus(400);
