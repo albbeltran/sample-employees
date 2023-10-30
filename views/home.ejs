@@ -34,8 +34,16 @@
               <td><%= employee.id %></td>
               <td><%= employee.name %></td>
               <td><%= employee.department %></td>
-              <td><button class="btn btn-warning">Actualizar</button></td>
-              <td><button class="btn btn-danger">Baja</button></td>
+              <td>
+                <form method="PUT" action="/empleado">
+                  <button type="submit" class="btn btn-warning">Actualizar</button>
+                </form>
+              </td>
+              <td>
+                <form method="DELETE" action="/empleado">
+                  <button type="submit" class="btn btn-danger">Baja</button>
+                </form>
+              </td>
             </tr>
           <% }) %>
         <% } %>
@@ -43,18 +51,17 @@
     </div>
 
     <div class="mb-5 w-25">
-      <form id="search-form">
+      <form id="search-form" method="GET" action="empleado/">
         <label for="emp_search" class="form-label">Buscar empleado:</label>
         <input type="text" class="form-control mb-3" name="id" id="emp_search" placeholder="Expediente">
 
         <button type="submit" class="btn btn-primary">Buscar</button>
-        <button id="btn-clear" class="btn btn-warning">Limpiar</button>
       </form>
     </div>
 
     <div class="mb-5 w-50">
       <h3>Alta de empleado</h3>
-      <form id="add-form">
+      <form id="add-form" method="post" action="/empleado">
         <div class="mb-3">
           <label for="emp_name" class="form-label">Nombre: </label>
           <input type="text" class="form-control mb-3" name="name" id="emp_name">

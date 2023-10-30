@@ -47,8 +47,9 @@ async function home(req, res) {
 
 async function ifEmployeeExists(req, res) {
     try {
-        const employee = await Employee.findById(req.params.id);
-        res.render('employee', { employee });
+        const employee = await Employee.findById(req.query.id);
+        console.log(employee)
+        res.render('employee', { employee: employee[0] });
     } catch {
         res.sendStatus(400);
     }

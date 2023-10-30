@@ -10,12 +10,12 @@ router.post('/empleado', employeeController.register);
 
 // get methods
 router.get('/', employeeController.verifyToken, employeeController.home);
-router.get('/empleado/:id', employeeController.ifEmployeeExists);
+router.get('/empleado/', employeeController.ifEmployeeExists);
 
 // put methods
-router.put('/empleado/:id', employeeController.update);
+router.put('/empleado/', employeeController.update);
 
 // delete methods
-router.delete('/empleado/:id', employeeController.remove);
+router.delete('/empleado/', employeeController.remove);
 
 module.exports = router;

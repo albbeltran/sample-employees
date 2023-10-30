@@ -22,15 +22,23 @@
     </header>
 
     <main class="mt-5 mb-5 m-auto">
-        <h3><%= employee.name %></h3>
+        <h3>
+            <%= employee.name %>
+        </h3>
         <div class="d-flex">
             <div>
-                <p>Expediente: <%= employee.id %></p>
-                <p>Departamento: <%= employee.id %></p>
+                <p>Expediente: <%= employee.id %>
+                </p>
+                <p>Departamento: <%= employee.id %>
+                </p>
             </div>
             <div>
-                <button class="btn btn-warning">Actualizar</button>
-                <button class="btn btn-danger">Baja</button>
+                <form method="PUT" action="/empleado">
+                    <button type="submit" class="btn btn-warning" name=<%employee.id%>>Actualizar</button>
+                </form>
+                <form method="DELETE" action="/empleado">
+                    <button type="submit" class="btn btn-danger" >Baja</button>
+                </form>
             </div>
         </div>
     </main>
