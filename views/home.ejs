@@ -27,6 +27,7 @@
           <th scope="col">Expediente</th>
           <th scope="col">Nombre</th>
           <th scope="col">Departamento</th>
+          <th scope="col">Accciones</th>
         </tr>
         <% if(employees.length) { %>
           <% employees.forEach(employee=> { %>
@@ -35,13 +36,8 @@
               <td><%= employee.name %></td>
               <td><%= employee.department %></td>
               <td>
-                <form method="PUT" action="/empleado">
-                  <button type="submit" class="btn btn-warning">Actualizar</button>
-                </form>
-              </td>
-              <td>
-                <form method="DELETE" action="/empleado">
-                  <button type="submit" class="btn btn-danger">Baja</button>
+                <form method="GET" action="/empleado/<%= employee.id %>">
+                  <button type="submit" class="btn btn-secondary">Ver</button>
                 </form>
               </td>
             </tr>
