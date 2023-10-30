@@ -55,12 +55,11 @@ Employee.prototype.update = function () {
 }
 
 Employee.prototype.remove = function () {
+    console.log('ID TO DELETE: ', this.data);
     return new Promise(async (resolve, reject) => {
         try {
             await query('DELETE FROM employees WHERE id = ?', [this.data]);
-            const employees = await this.getAllEmployees();
-
-            resolve(employees);
+            resolve();
         } catch {
             reject()
         }

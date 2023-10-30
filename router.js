@@ -16,6 +16,6 @@ router.get('/empleado', employeeController.ifEmployeeExists);
 router.put('/empleado/:id', employeeController.update);
 
 // delete methods
-router.delete('/empleado', employeeController.remove);
+router.delete('/empleado/:id', employeeController.remove);
 
 module.exports = router;

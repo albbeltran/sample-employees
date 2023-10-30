@@ -17,7 +17,6 @@ function verifyToken(req, res, next) {
 }
 
 async function login(req, res) {
-
     try {
         const employee = new Employee(req.body);
         const employeeAuth = await employee.login();
@@ -48,7 +47,6 @@ async function home(req, res) {
 async function ifEmployeeExists(req, res) {
     try {
         const employee = await Employee.findById(req.query.id);
-        console.log('HEY')
         res.render('employee', { employee: employee[0] });
     } catch {
         res.sendStatus(400);
@@ -76,13 +74,13 @@ async function update(req, res) {
 }
 
 async function remove(req, res) {
+    // console.log(req.params.id)
     try {
         const employee = new Employee(req.params.id);
-        // first we check if employee exists
-        await Employee.findById(req.params.id);
         // remove the employee
-        const employees = await employee.remove();
-        res.render('home', { employees });
+        await employee.remove();
+        // redirect with 303 code to redirect using GET method, not DELETE
+        res.redirect(303, '/');
     } catch {
         res.sendStatus(400);
     }
