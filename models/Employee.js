@@ -6,43 +6,32 @@ class Employee {
     }
 }
 
-Employee.prototype.path = 'https://mocki.io/v1/80cbc9e5-2e9a-42a0-a6f5-a5c5f6a294e7';
-
 Employee.prototype.login = function () {
     return new Promise(async (resolve, reject) => {
-        const employees = await this.getAllEmployees();
-        let exists = false;
+        try {
+            const attemptedEmployee = await query('SELECT * FROM employees WHERE id = ?', [this.data.id]);
 
-        for (let index = 0; index < employees.length; index++) {
-            if (employees[index].id === Number(this.data.id)) {
-                exists = true;
-
-                // verify employee's dpto is RRHH
-                // verify password
-                if (employees[index].department === 'RRHH'
-                    && employees[index].password === this.data.password) {
-                    resolve();
-                    break;
-                }
-
-                // otherwise, send 401 error (No Authorized)
-                reject();
-                break;
+            if (attemptedEmployee[0].department === 'RRHH'
+                && attemptedEmployee[0].password === this.data.password) {
+                resolve();
             }
+
+            reject();
+        } catch {
+            reject();
         }
-        // Req employee id does not exist
-        if (!exists) reject();
+
     })
 }
 
 Employee.prototype.register = function () {
     return new Promise(async (resolve, reject) => {
         try {
-            await query("INSERT INTO employees_sample.employees(id,name,password,department) VALUES (?, ?, ?, ?)", 
-            [this.data.id, this.data.name, this.data.password, this.data.department])
+            await query("INSERT INTO employees_sample.employees(id,name,password,department) VALUES (?, ?, ?, ?)",
+                [this.data.id, this.data.name, this.data.password, this.data.department])
 
             const employees = await this.getAllEmployees();
-            
+
             resolve(employees);
         } catch {
             reject();
