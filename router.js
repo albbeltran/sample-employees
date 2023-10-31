@@ -19,4 +19,7 @@ router.put('/empleado/:id', employeeController.update);
 // delete methods
 router.delete('/empleado/:id', employeeController.remove);
 
+// 404 route
+router.get('*', employeeController.notFound);
+
 module.exports = router;

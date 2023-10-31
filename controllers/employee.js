@@ -98,6 +98,10 @@ async function remove(req, res) {
     }
 }
 
+function notFound(req, res) {
+    res.render('404');
+  }
+
 exports.verifyToken = verifyToken;
 exports.login = login;
 exports.logout = logout;
@@ -106,3 +110,4 @@ exports.employeeScreen = employeeScreen;
 exports.register = register;
 exports.update = update;
 exports.remove = remove;
+exports.notFound = notFound;
