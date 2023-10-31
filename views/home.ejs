@@ -39,7 +39,7 @@
       <div class="mb-5 w-25">
         <form id="search-form">
           <label for="emp_search" class="form-label">Buscar empleado:</label>
-          <input type="text" class="form-control mb-3" id="emp_search" placeholder="Expediente">
+          <input type="text" class="form-control mb-3" id="emp_search" placeholder="Expediente" required>
 
           <button type="submit" class="btn btn-primary">Buscar</button>
         </form>
@@ -50,10 +50,10 @@
         <form id="add-form" method="post" action="/empleado">
           <div class="mb-3">
             <label for="emp_name" class="form-label">Nombre: </label>
-            <input type="text" class="form-control mb-3" name="name" id="emp_name">
+            <input type="text" class="form-control mb-3" name="name" id="emp_name" required>
 
             <label for="emp_id" class="form-label">Expediente:</label>
-            <input class="form-control mb-3" type="text" name="id" id="emp_id">
+            <input class="form-control mb-3" type="text" name="id" id="emp_id" required>
 
             <label for="emp_dpto" class="form-label">Departamento:</label>
             <select class="form-select mb-3" name="department" id="emp_dpto">
@@ -64,7 +64,7 @@
             </select>
 
             <label for="emp_pass" class="form-label">Contraseña:</label>
-            <input type="password" class="form-control mb-3" name="password" id="emp_pass">
+            <input type="password" class="form-control mb-3" name="password" id="emp_pass" required>
 
             <button type="submit" class="btn btn-primary">Alta</button>
           </div>
