@@ -4,60 +4,68 @@
 
         <%- include('./partials/header.ejs') %>
 
-        <main class="mt-5 mb-5 m-auto">
-            <h3>
-                <%= employee.name %>
-            </h3>
-            <div class="d-flex">
-                <div>
-                    <p>Expediente: <%= employee.id %>
-                    </p>
-                    <p>Departamento: <%= employee.department %>
-                    </p>
-                </div>
-                <div>
-                    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updateModal"
-                        name=<%=employee.id %>>Actualizar</button>
-                    <button id="delete-btn" class="btn btn-danger" name=<%=employee.id %>>Baja</button>
-                </div>
-            </div>
-        </main>
-
-        <div class="modal fade mbt-5" tabindex="-1" id="updateModal" aria-labelledby="updateModalLabel"
-            aria-hidden="true" style="top: 20%;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Editar empleado</h5>
+            <main class="mt-5 mb-5 m-auto">
+                <h3>Empleado</h3>
+                <div class="d-flex justify-start gap-5 mt-5">
+                    <div>
+                        <img src="https://amazinganimalphotos.com/wp-content/uploads/2020/04/animals-quarantine-working-from-home.jpg"
+                            alt="working" width="300px">
                     </div>
-                    <form id="update-form">
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label for="emp_id" class="form-label">Expediente:</label>
-                                <input class="form-control mb-3" type="text" name="id" id="emp_id"
-                                    value="<%= employee.id %>" disabled>
-
-                                <label for="emp_name" class="form-label">Nombre: </label>
-                                <input type="text" class="form-control mb-3" name="name" id="emp_name"
-                                    value="<%= employee.name %>">
-
-                                <label for="emp_dpto" class="form-label">Departamento:</label>
-                                <select class="form-select mb-3" name="department" id="emp_dpto">
-                                    <option value="INFORMATICA">Informática</option>
-                                    <option value="VENTAS">Ventas</option>
-                                    <option value="MERCADOCTENIA">Mercadoctenia</option>
-                                    <option value="RRHH">Recursos Humanos</option>
-                                </select>
-
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                id="close-modal">Cerrar</button>
-                            <button type="submit" class="btn btn-primary" id="update-btn">Guardar</button>
-                        </div>
-                    </form>
+                    <div>
+                        <p>
+                            <b>Nombre:</b>
+                            <%= employee.name %>
+                        </p>
+                        <p>
+                            <b>Expediente:</b>
+                            <%= employee.id %>
+                        </p>
+                        <p>
+                            <b>Departamento:</b>
+                            <%= employee.department %>
+                        </p>
+                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updateModal"
+                            name=<%=employee.id %>>Actualizar</button>
+                        <button id="delete-btn" class="btn btn-danger" name=<%=employee.id %>>Baja</button>
+                    </div>
                 </div>
-            </div>
+            </main>
 
-<%- include('./partials/footer.ejs') %>
+            <div class="modal fade mbt-5" tabindex="-1" id="updateModal" aria-labelledby="updateModalLabel"
+                aria-hidden="true" style="top: 20%;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Editar empleado</h5>
+                        </div>
+                        <form id="update-form">
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="emp_id" class="form-label">Expediente:</label>
+                                    <input class="form-control mb-3" type="text" name="id" id="emp_id"
+                                        value="<%= employee.id %>" disabled>
+
+                                    <label for="emp_name" class="form-label">Nombre: </label>
+                                    <input type="text" class="form-control mb-3" name="name" id="emp_name"
+                                        value="<%= employee.name %>">
+
+                                    <label for="emp_dpto" class="form-label">Departamento:</label>
+                                    <select class="form-select mb-3" name="department" id="emp_dpto">
+                                        <option value="INFORMATICA">Informática</option>
+                                        <option value="VENTAS">Ventas</option>
+                                        <option value="MERCADOCTENIA">Mercadoctenia</option>
+                                        <option value="RRHH">Recursos Humanos</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                    id="close-modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary" id="update-btn">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <%- include('./partials/footer.ejs') %>

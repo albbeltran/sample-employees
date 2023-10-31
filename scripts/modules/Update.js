@@ -1,4 +1,4 @@
-import { nameHandler, dptoHandler } from "./inputHandlers";
+import { nameHandler, dptoHandler } from "../inputHandlers";
 
 export default class Update {
 
