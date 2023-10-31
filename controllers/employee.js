@@ -65,8 +65,9 @@ async function ifEmployeeExists(req, res) {
 async function register(req, res) {
     try {
         const employee = new Employee(req.body);
-        const employeeAdded = await employee.register();
-        // res.render('employee', { employee: employeeAdded });
+        // add new employee
+        await employee.register();
+        // redirect with 303 code to redirect using GET method, not DELETE
         res.redirect(303, `/empleado/${req.body.id}`);
     } catch {
         res.sendStatus(400);
@@ -78,8 +79,9 @@ async function update(req, res) {
     try {
         const employee = new Employee(req.body);
         // update the employee
-        const employeeUpdated = await employee.update();
-        res.render('employee', { employee: employeeUpdated });
+        await employee.update();
+        // redirect with 303 code to redirect using GET method, not DELETE
+        res.redirect(303, `/empleado/${req.body.id}`);
     } catch {
         res.sendStatus(400);
     }
