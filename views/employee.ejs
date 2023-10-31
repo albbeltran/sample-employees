@@ -2,7 +2,14 @@
 
     <body class="w-75 mt-5 mb-5 m-auto">
 
-        <%- include('./partials/header.ejs') %>
+        <header class="d-flex justify-content-end gap-3">
+            <form id="back-form" method="GET" action="/" class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-secondary" id="btn-back">Regresar</button>
+            </form>
+            <form id="logout-form" method="POST" action="/logout" class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary" id="btn-logout">Cerrar sesión</button>
+            </form>
+        </header>
 
             <main class="mt-5 mb-5 m-auto">
                 <h3>Empleado</h3>
