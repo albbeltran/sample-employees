@@ -25,9 +25,6 @@ Employee.prototype.login = function () {
 Employee.prototype.register = function () {
     return new Promise(async (resolve, reject) => {
         try {
-            const employee = await query('SELECT id, name, department FROM employees WHERE id = ?', [id]);
-            if(employee) reject("Expediente en uso.");
-
             await query("INSERT INTO employees_sample.employees(id,name,password,department) VALUES (?, ?, ?, ?)",
                 [this.data.id, this.data.name, this.data.password, this.data.department])
 
@@ -82,7 +79,7 @@ Employee.findById = function (id) {
             if(employee.length) resolve(employee[0]);
             reject("Expediente no registrado.");
         } catch {
-            reject("Expediente no registrado.");
+            reject("Error al realizar la consulta.");
         }
     })
 }
