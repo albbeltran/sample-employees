@@ -1,4 +1,4 @@
-import { idHandler } from "./inputHandlers";
+import { idHandler } from "../inputHandlers";
 
 export default class Login {
 
@@ -23,23 +23,35 @@ export default class Login {
     }
 
     async loginReq() {
-        let employeeData = {
-            id: this.id.value,
-            password: this.password.value,
-        }
+        try {
+            let employeeData = {
+                id: this.id.value,
+                password: this.password.value,
+            }
 
-        const res = await fetch('http://localhost:3000/login', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(employeeData)
-        })
-        // redirect happens in backend, the url is fetched and sent to the frontend
-        // needed to do manual redirect in the browser
-        this.redirectUrl = res.url;
-        if (this.redirectUrl && this.redirectUrl !== "")
-            window.location = this.redirectUrl;
+            const res = await fetch('http://localhost:3000/login', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(employeeData)
+            })
+
+            if (res.status === 400) {
+                const error = await res.json();
+                alert(`ERROR: ${error}`);
+                return;
+            }
+
+            // redirect happens in backend, the url is fetched and sent to the frontend
+            // needed to do manual redirect in the browser
+            this.redirectUrl = res.url;
+            if (this.redirectUrl && this.redirectUrl !== "")
+                window.location = this.redirectUrl;
+        } catch (error) {
+            console.log(error)
+            alert('ERROR INTERNO. Vuelva a intentar más tarde.');
+        }
     }
 }

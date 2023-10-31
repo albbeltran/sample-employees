@@ -11,14 +11,12 @@ Employee.prototype.login = function () {
         try {
             const attemptedEmployee = await query('SELECT * FROM employees WHERE id = ?', [this.data.id]);
 
-            if (attemptedEmployee[0].department === 'RRHH'
-                && attemptedEmployee[0].password === this.data.password) {
-                resolve(attemptedEmployee);
-            }
+            if (!(attemptedEmployee[0].department === 'RRHH')) reject('Empleado no autorizado');
+            if (!(attemptedEmployee[0].password === this.data.password)) reject('Contraseña incorrecta.');
 
-            reject();
+            resolve(attemptedEmployee);
         } catch {
-            reject();
+            reject('Expediente no registrado.');
         }
 
     })
@@ -27,12 +25,15 @@ Employee.prototype.login = function () {
 Employee.prototype.register = function () {
     return new Promise(async (resolve, reject) => {
         try {
+            const employee = await query('SELECT id, name, department FROM employees WHERE id = ?', [id]);
+            if(employee) reject("Expediente en uso.");
+
             await query("INSERT INTO employees_sample.employees(id,name,password,department) VALUES (?, ?, ?, ?)",
                 [this.data.id, this.data.name, this.data.password, this.data.department])
 
             resolve();
         } catch {
-            reject();
+            reject("Expediente en uso.");
         }
     })
 }
@@ -45,19 +46,18 @@ Employee.prototype.update = function () {
 
             resolve();
         } catch {
-            reject()
+            reject('Error al actualizar los datos.');
         }
     })
 }
 
 Employee.prototype.remove = function () {
-    console.log('ID TO DELETE: ', this.data);
     return new Promise(async (resolve, reject) => {
         try {
             await query('DELETE FROM employees WHERE id = ?', [this.data]);
             resolve();
         } catch {
-            reject()
+            reject('Expediente no registrado.')
         }
     })
 }
@@ -68,7 +68,7 @@ Employee.prototype.getAllEmployees = function () {
             const employees = await query('SELECT id, name, department FROM employees', []);
             resolve(employees);
         } catch {
-            reject();
+            reject('Error al realizar la consulta.');
         }
     })
 }
@@ -78,9 +78,11 @@ Employee.findById = function (id) {
     return new Promise(async (resolve, reject) => {
         try {
             const employee = await query('SELECT id, name, department FROM employees WHERE id = ?', [id]);
-            resolve(employee[0]);
+
+            if(employee.length) resolve(employee[0]);
+            reject("Expediente no registrado.");
         } catch {
-            reject()
+            reject("Expediente no registrado.");
         }
     })
 }

@@ -1,4 +1,4 @@
-import { idHandler } from "./inputHandlers";
+import { idHandler } from "../inputHandlers";
 
 export default class Search {
     constructor() {
@@ -21,13 +21,24 @@ export default class Search {
     }
 
     async searchReq() {
-        console.log(this.id.value)
+        try {
+            const res = await fetch(`/empleado/${this.id.value}`)
+            // redirect happens in backend, the url is fetched and sent to the frontend
+            // needed to do manual redirect in the browser
 
-        const res = await fetch(`/empleado/${this.id.value}`)
-        // redirect happens in backend, the url is fetched and sent to the frontend
-        // needed to do manual redirect in the browser
-        this.redirectUrl = res.url;
-        if (this.redirectUrl && this.redirectUrl !== "")
-            window.location = this.redirectUrl;
+            if (res.status === 400) {
+                const error = await res.json();
+                alert(`ERROR: ${error}`);
+                return;
+            }
+
+            this.redirectUrl = res.url;
+            if (this.redirectUrl && this.redirectUrl !== "")
+                window.location = this.redirectUrl;
+            
+        } catch (error) {
+            console.log(error)
+            alert('ERROR INTERNO. Vuelva a intentar más tarde.');
+        }
     }
 }

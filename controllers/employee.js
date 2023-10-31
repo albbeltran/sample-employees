@@ -29,8 +29,8 @@ async function login(req, res) {
 
         res.cookie('jwt', token);
         res.redirect('/');
-    } catch {
-        res.sendStatus(400);
+    } catch (error) {
+        res.status(400).json(error);
     }
 }
 
@@ -53,12 +53,12 @@ async function home(req, res) {
     }
 }
 
-async function ifEmployeeExists(req, res) {
+async function employeeScreen(req, res) {
     try {
         const employee = await Employee.findById(req.params.id);
         res.render('employee', { employee });
-    } catch {
-        res.sendStatus(400);
+    } catch (error) {
+        res.status(400).json(error);
     }
 }
 
@@ -69,21 +69,20 @@ async function register(req, res) {
         await employee.register();
         // redirect with 303 code to redirect using GET method, not DELETE
         res.redirect(303, `/empleado/${req.body.id}`);
-    } catch {
-        res.sendStatus(400);
+    } catch (error) {
+        res.status(400).json(error);
     }
 }
 
 async function update(req, res) {
-    console.log('Updating...')
     try {
         const employee = new Employee(req.body);
         // update the employee
         await employee.update();
         // redirect with 303 code to redirect using GET method, not DELETE
         res.redirect(303, `/empleado/${req.body.id}`);
-    } catch {
-        res.sendStatus(400);
+    } catch (error) {
+        res.status(400).json(error);
     }
 }
 
@@ -94,8 +93,8 @@ async function remove(req, res) {
         await employee.remove();
         // redirect with 303 code to redirect using GET method, not DELETE
         res.redirect(303, '/');
-    } catch {
-        res.sendStatus(400);
+    } catch (error) {
+        res.status(400).json(error);
     }
 }
 
@@ -103,7 +102,7 @@ exports.verifyToken = verifyToken;
 exports.login = login;
 exports.logout = logout;
 exports.home = home;
-exports.ifEmployeeExists = ifEmployeeExists;
+exports.employeeScreen = employeeScreen;
 exports.register = register;
 exports.update = update;
 exports.remove = remove;

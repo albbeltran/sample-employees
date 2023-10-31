@@ -1,4 +1,4 @@
-import { idHandler, nameHandler, dptoHandler } from "./inputHandlers";
+import { idHandler, nameHandler, dptoHandler } from "../inputHandlers";
 
 export default class Add {
 
@@ -33,26 +33,38 @@ export default class Add {
     }
 
     async addReq() {
-        let employeeData = {
-            id: this.id.value,
-            name: this.name.value,
-            password: this.password.value,
-            department: this.department.value
+        try {
+            let employeeData = {
+                id: this.id.value,
+                name: this.name.value,
+                password: this.password.value,
+                department: this.department.value
+            }
+
+            const res = await fetch('http://localhost:3000/empleado', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(employeeData)
+            })
+
+            if (res.status === 400) {
+                const error = await res.json();
+                alert(`ERROR: ${error}`);
+                return;
+            }
+
+            // redirect happens in backend, the url is fetched and sent to the frontend
+            // needed to do manual redirect in the browser
+            this.redirectUrl = res.url;
+            if (this.redirectUrl && this.redirectUrl !== "")
+                window.location = this.redirectUrl;
+
+        } catch (error) {
+            console.log(error)
+            alert('ERROR INTERNO. Vuelva a intentar más tarde.');
         }
-
-        const res = await fetch('http://localhost:3000/empleado', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(employeeData)
-        })
-
-        // redirect happens in backend, the url is fetched and sent to the frontend
-        // needed to do manual redirect in the browser
-        this.redirectUrl = res.url;
-        if (this.redirectUrl && this.redirectUrl !== "")
-            window.location = this.redirectUrl;
     }
 }
